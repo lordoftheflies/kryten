@@ -15,14 +15,12 @@ pipeline {
         stage('Setup') {
               steps {
                 echo 'Setup virtual environment'
-                sh '''
-                    if [ ! -d "$VIRTUAL_ENVIRONMENT_DIRECTORY" ]; then
+                sh '''if [ ! -d "$VIRTUAL_ENVIRONMENT_DIRECTORY" ]; then
                         virtualenv --no-site-packages -p $PYTHON_EXECUTABLE $VIRTUAL_ENVIRONMENT_DIRECTORY
                     fi
                 '''
                 echo 'Create Dotenv configuration'
-                ssh '''
-                    if [ ! -f "$DOTENV_CONFIGURATION_FILE" ]; then
+                ssh '''if [ ! -f "$DOTENV_CONFIGURATION_FILE" ]; then
                         cp env.template $DOTENV_CONFIGURATION_FILE
                         sed -i -- 's/$ENVIRONMENT_PLACEHOLDER/$ENVIRONMENT_STAGING/g' $DOTENV_CONFIGURATION_FILE
                     fi
@@ -33,14 +31,12 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Install requirements'
-                sh '''
-                    . ./env/bin/activate
+                sh '''. ./env/bin/activate
                     pip install -r requirements.txt -r requirements/$ENVIRONMENT_STAGING.txt --extra-index-url=$EXTRA_INDEX_URL
                     deactivate
                 '''
                 echo 'Synchronize resources'
-                sh '''
-                    . ./env/bin/activate
+                sh '''. ./env/bin/activate
                     python manage.py collectstatic --noinput
                     python manage.py migrate
                     deactivate
@@ -60,18 +56,15 @@ pipeline {
             }
             steps {
                 echo 'Update version'
-                sh '''
-                    . ./env/bin/activate
+                sh '''. ./env/bin/activate
                     RC_VERSION=$(cat $DJANGO_PROJECT/version.py | grep "__version__ = " | sed 's/__version__ =//' | tr -d "'")
                     bumpversion --allow-dirty --message 'Jenkins Build {$BUILD_NUMBER} bump version: {current_version} -> {new_version}' --commit --current-version $RC_VERSION patch $DJANGO_PROJECT/version.py
                     deactivate
                 '''
-                sh '''
-                    git push origin master
+                sh '''git push origin master
                 '''
                 echo 'Publish distribution'
-                sh '''
-                    . ./env/bin/activate
+                sh '''. ./env/bin/activate
                     python setup.py sdist upload -r local
                     deactivate
                 '''
@@ -85,17 +78,13 @@ pipeline {
             }
             steps {
                 echo 'Jenkins build ${env.BUILD_ID} distribution'
-                sh '''
-                    cd ./ansible
+                sh '''cd ./ansible
                     ansible-playbook ./site.playbook.yml --extra-vars "ansible_become_pass=$SUDO_PASSWORD"
                 '''
             }
         }
     }
     post {
-        always {
-            junit '**/target/*.xml'
-        }
         failure {
             mail to: laszlo.hegedus@cherubits.hu, subject: '[$DJANGO_PROJECT] The Pipeline failed :('
         }
