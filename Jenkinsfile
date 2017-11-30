@@ -84,9 +84,4 @@ pipeline {
             }
         }
     }
-    post {
-        failure {
-            mail to: laszlo.hegedus@cherubits.hu, subject: '[$DJANGO_PROJECT] The Pipeline failed :('
-        }
-    }
 }
