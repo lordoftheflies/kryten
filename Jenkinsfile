@@ -33,7 +33,7 @@ pipeline {
             steps {
                 echo 'Install requirements'
                 sh '''. ./env/bin/activate
-                    pip install -r requirements.txt -r requirements/$ENVIRONMENT_STAGING.txt --extra-index-url=$EXTRA_INDEX_URL
+                    pip install -r requirements/common.txt -r requirements/$ENVIRONMENT_STAGING.txt --extra-index-url=$EXTRA_INDEX_URL
                     deactivate
                 '''
                 echo 'Synchronize resources'
