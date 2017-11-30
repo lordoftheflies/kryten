@@ -20,7 +20,7 @@ pipeline {
                     fi
                 '''
                 echo 'Create Dotenv configuration'
-                ssh '''if [ ! -f "$DOTENV_CONFIGURATION_FILE" ]; then
+                sh '''if [ ! -f "$DOTENV_CONFIGURATION_FILE" ]; then
                         cp env.template $DOTENV_CONFIGURATION_FILE
                         sed -i -- 's/$ENVIRONMENT_PLACEHOLDER/$ENVIRONMENT_STAGING/g' $DOTENV_CONFIGURATION_FILE
                     fi
