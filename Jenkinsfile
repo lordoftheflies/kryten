@@ -4,6 +4,7 @@ pipeline {
         PYTHON_EXECUTABLE = '/usr/bin/python3.4'
         VIRTUAL_ENVIRONMENT_DIRECTORY = 'env'
         DOTENV_CONFIGURATION_FILE = '.env'
+        DOTENV_CONFIGURATION_TEMPLATE = 'env.template'
         ENVIRONMENT_STAGING = 'staging'
         ENVIRONMENT_PLACEHOLDER = 'development'
         EXTRA_INDEX_URL = 'https://pypi.cherubits.hu'
@@ -21,7 +22,7 @@ pipeline {
                 '''
                 echo 'Create Dotenv configuration'
                 sh '''if [ ! -f "$DOTENV_CONFIGURATION_FILE" ]; then
-                        cp env.template $DOTENV_CONFIGURATION_FILE
+                        cp $DOTENV_CONFIGURATION_TEMPLATE $DOTENV_CONFIGURATION_FILE
                         sed -i -- 's/$ENVIRONMENT_PLACEHOLDER/$ENVIRONMENT_STAGING/g' $DOTENV_CONFIGURATION_FILE
                     fi
                 '''
