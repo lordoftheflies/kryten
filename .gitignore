@@ -62,3 +62,5 @@ typings/
 # Virtual environment directory
 env/
 
+# IntelliJ IDE directory
+.idea/
