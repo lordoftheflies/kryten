@@ -64,7 +64,7 @@ pipeline {
                 echo 'Update version'
                 sh '''. ./env/bin/activate
                     RC_VERSION=$(cat $DJANGO_PROJECT/version.py | grep "__version__ = " | sed 's/__version__ =//' | tr -d "'")
-                    bumpversion --allow-dirty --message "Jenkins Build {$BUILD_NUMBER} bump version: {current_version} -> {new_version}" --commit --current-version $RC_VERSION patch $DJANGO_PROJECT/version.py
+                    bumpversion --allow-dirty --message 'Jenkins Build {$BUILD_NUMBER} bump version: {current_version} -> {new_version}' --commit --current-version $RC_VERSION patch $DJANGO_PROJECT/version.py
                     deactivate
                 '''
                 sh '''git push origin ${env.BRANCH_NAME}
