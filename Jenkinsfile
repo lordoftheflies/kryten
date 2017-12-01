@@ -56,6 +56,11 @@ pipeline {
               }
             }
             steps {
+                echo 'Install locally'
+                sh '''. ./env/bin/activate
+                    python setup.py sdist install
+                    deactivate
+                '''
                 echo 'Update version'
                 sh '''. ./env/bin/activate
                     RC_VERSION=$(cat $DJANGO_PROJECT/version.py | grep "__version__ = " | sed 's/__version__ =//' | tr -d "'")
