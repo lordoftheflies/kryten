@@ -67,8 +67,7 @@ pipeline {
                     bumpversion --allow-dirty --message 'Jenkins Build {$BUILD_NUMBER} bump version: {current_version} -> {new_version}' --commit --current-version $RC_VERSION patch $DJANGO_PROJECT/version.py
                     deactivate
                 '''
-                sh 'printenv'
-                sh '''git push origin ${env.BRANCH_NAME}
+                sh '''git push origin ${GIT_BRANCH}
                 '''
                 echo 'Publish distribution'
                 sh '''. ./env/bin/activate
