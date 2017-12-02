@@ -10,13 +10,14 @@
     shell: /bin/bash
     groups: "{{ kryten.group }},www-data"
     append: yes
-    home: ""
+    home: "{{ kryten.base_directory }}"
+    createhome: yes
   become: yes
   become_user: root
 
 - name: Create workspace directory
   file:
-    path: "{{ kryten.workspace_directory }}"
+    path: "{{ kryten.base_directory }}"
     state: directory
     owner: "{{ kryten.user }}"
     group: "{{ kryten.group }}"
