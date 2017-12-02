@@ -1,5 +1,23 @@
 ---
 # This playbook deploy Django application
+- name: Copy application credentials
+  become_user: "{{ kryten.user }}"
+  template:
+    src: .netrc
+    dest: "~/.netrc"
+  tags:
+    - kryten
+    - worksheet
+    - delivery
+- name: Copy pypi client side config
+  become_user: "{{ kryten.user }}"
+  template:
+    src: .pypirc
+    dest: "~/.pypirc"
+  tags:
+    - kryten
+    - worksheet
+    - delivery
 
 - name: Install or update application
   become_user: "{{ kryten.user }}"
@@ -7,7 +25,7 @@
     name: "{{ kryten.project }}"
     virtualenv: "{{ kryten.virtualenv_path }}"
     virtualenv_python: python3.4
-    extra_args: "-U  --extra-index-url {{ extra_index_url }}"
+    extra_args: "-U --extra-index-url {{ extra_index_url }}"
   tags:
     - kryten
     - worksheet
