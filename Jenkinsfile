@@ -15,9 +15,8 @@ pipeline {
     stages {
         stage('Checkout development branch') {
             steps {
-                sshagent (credentials: ['jenkins-private-key']) {
-                    git(url: 'git@github.com:lordoftheflies/kryten-worksheet.git', branch: 'feature/i2-jenkinsfile', changelog: true, credentialsId: 'jenkins-private-key', poll: true)
-                }
+                git(url: 'git@github.com:lordoftheflies/kryten-worksheet.git', branch: 'feature/i2-jenkinsfile', changelog: true, credentialsId: 'jenkins-private-key', poll: true)
+                
             }
         }
 
