@@ -1,0 +1,36 @@
+---
+# This playbook deploy Django application
+
+- name: Install or update application
+  become_user: "{{ kryten.user }}"
+  pip:
+    name: "{{ kryten.project }}"
+    virtualenv: "{{ kryten.virtualenv_path }}"
+    virtualenv_python: python3.4
+    extra_args: "-U -i {{ extra_index_url }}"
+  tags:
+    - kryten
+    - worksheet
+    - upstart
+
+- name: Run Django database migrations
+  become_user: "{{ kryten.user }}"
+  django_manage:
+    command: migrate
+    app_path: "{{ kryten.project_path }}"
+    virtualenv: "{{ kryten.virtualenv_path }}"
+  tags:
+    - kryten
+    - worksheet
+    - upstart
+
+- name: Run Django collectstatic
+  become_user: "{{ kryten.user }}"
+  django_manage:
+    command: collectstatic
+    app_path: "{{ kryten.project_path }}"
+    virtualenv: "{{ kryten.virtualenv_path }}"
+  tags:
+    - kryten
+    - worksheet
+    - microservice

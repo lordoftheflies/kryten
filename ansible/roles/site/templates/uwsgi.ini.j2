@@ -1,0 +1,11 @@
+[uwsgi]
+socket = 127.0.0.1:{{ kryten.port }}
+logto = {{ kryten.logfile }}
+
+project = {{ kryten.project }}
+base = {{ kryten.base_directory }}
+
+chdir = %(base)
+home = %(base)/env
+module = %(project).wsgi
+

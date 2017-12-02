@@ -1,0 +1,6 @@
+---
+# This playbook install the application.
+- include: upstart.yml
+- include: configuration.yml
+- include: site.yml
+- include: reload.yml
