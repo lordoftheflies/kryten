@@ -1,4 +1,5 @@
-# Django 1.11+ project template
+Django 1.11+ project template
+=============================
 
 [![Dependency Status](https://gemnasium.com/jpadilla/django-project-template.svg)](https://gemnasium.com/jpadilla/django-project-template)
 
