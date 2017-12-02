@@ -1,0 +1,72 @@
+---
+# This playbook setup Django
+
+- user:
+    name: "{{ kryten.user }}"
+    shell: /bin/bash
+    groups: "{{ kryten.group }},www-data"
+    append: yes
+    home: ""
+
+
+- name: Create workspace directory
+  file:
+    path: "{{ kryten.workspace_directory }}"
+    state: directory
+    owner: "{{ kryten.user }}"
+    group: "{{ kryten.group }}"
+  become: yes
+  become_user: root
+  tags:
+    - kryten
+    - worksheet
+    - upstart
+- name: Create logs directory
+  file:
+    path: "{{ kryten.base_directory }}/{{ kryten.log_directory }}"
+    state: directory
+    owner: "{{ kryten.user }}"
+    group: "{{ kryten.group }}"
+  become: yes
+  become_user: root
+  tags:
+    - kryten
+    - worksheet
+    - upstart
+- name: Create configuration directory
+  file:
+    path: "{{ kryten.base_directory }}/{{ kryten.log_directory }}"
+    state: directory
+    owner: "{{ kryten.user }}"
+    group: "{{ kryten.group }}"
+  become: yes
+  become_user: root
+  tags:
+    - kryten
+    - worksheet
+    - upstart
+- name: Create static directory
+  file:
+    path: "{{ kryten.static_root }}"
+    state: directory
+    owner: "{{ kryten.user }}"
+    group: "{{ kryten.group }}"
+  become: yes
+  become_user: root
+  tags:
+    - kryten
+    - worksheet
+    - upstart
+
+- name: Manually create the initial virtualenv
+  become_user: "{{ kryten.user }}"
+  command: "virtualenv {{ kryten.base_directory }}/{{ kryten.virtualenv_name }} -p {{kryten.python_exec}}"
+  tags:
+    - kryten
+    - worksheet
+    - upstart
+
+
+
+
+

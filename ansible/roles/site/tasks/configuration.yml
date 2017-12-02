@@ -1,0 +1,57 @@
+---
+# This playbook update configuration files.
+- name: Copy uWSGi configuration
+  become_user: "{{ kryten.user }}"
+  template:
+    src: uwsgi.ini.j2
+    dest: "{{ kryten.base_directory }}/{{ kryten.config_directory }}/{{ uwsgi_config }}"
+  tags:
+    - kryten
+    - worksheet
+    - configuration
+
+- name: Copy NginX reverse-proxy
+  become_user: "{{ kryten.user }}"
+  template:
+    src: nginx.conf.j2
+    dest: "{{ kryten.base_directory }}/{{ kryten.config_directory }}/{{ nginx_config }}"
+  tags:
+    - kryten
+    - worksheet
+    - configuration
+
+- name: Link uWSGi configuration
+  become: yes
+  become_user: root
+  file:
+    src: '{{ base_directory }}/{{ config_directory }}/{{ uwsgi_config }}'
+    dest: '{{ uwsgi_sites_directory }}/{{ kryten.project }}.conf'
+    state: link
+  tags:
+    - kryten
+    - worksheet
+    - upstart
+
+- name: Link NginX configuration
+  become: yes
+  become_user: root
+  file:
+    src: '{{ base_directory }}/{{ config_directory }}/{{ nginx_config }}'
+    dest: '{{ nginx_sites_directory }}/{{ kryten.project }}.conf'
+    state: link
+  tags:
+    - kryten
+    - worksheet
+    - upstart
+
+- name: Enable site in NginX
+  become: yes
+  become_user: root
+  file:
+    src: '{{ nginx_sites_directory }}/kryten_worksheet.conf'
+    dest: '{{ nginx_enabled_directory }}/kryten_worksheet.conf'
+    state: link
+  tags:
+    - kryten
+    - worksheet
+    - upstart

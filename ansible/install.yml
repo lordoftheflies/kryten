@@ -1,11 +1,20 @@
 ---
 # This playbook deploys the whole application stack in this site.
-- name: Setup database
+- name: First steps
   hosts: all
   remote_user: lordoftheflies
   become: yes
   roles:
-    - database
+    - postgresql
   tags:
     - kryten
-    - database
+    - install
+- name: Install or full update
+  hosts: all
+  remote_user: lordoftheflies
+  become: yes
+  roles:
+    - site
+  tags:
+    - kryten
+    - integration

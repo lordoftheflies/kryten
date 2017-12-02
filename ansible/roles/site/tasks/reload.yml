@@ -1,0 +1,19 @@
+---
+# This playbook restart the whole application
+- name: Restart uWSGi service
+  become: yes
+  become_user: root
+  command: systemctl restart uwsgi
+  tags:
+    - kryten
+    - worksheet
+    - reload
+
+- name: Restart NginX service
+  become: yes
+  become_user: root
+  command: service nginx restart
+  tags:
+    - kryten
+    - worksheet
+    - reload

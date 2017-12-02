@@ -1,0 +1,26 @@
+---
+nginx_sites_directory: "/etc/nginx/sites-available"
+nginx_enabled_directory: "/etc/nginx/sites-enabled"
+uwsgi_sites_directory: "/etc/uwsgi/sites"
+extra_index_url: 'https://pypi.cherubits.hu'
+kryten:
+  name: 'Kryten Worksheet'
+  project: 'kryten_worksheet'
+  server: 'kryten'
+  port: 7901
+  domain: 'kryten.cherubits.hu'
+  user: 'kryten'
+  group: 'kryten'
+  password: 'qwe123'
+  log_directory: "log"
+  config_directory: "config"
+  logfile: "uwsgi.log"
+  base_directory: "/opt/cherubits/kryten"
+  python_exec: "python3.4"
+  uwsgi_config: "uwsgi.ini"
+  nginx_config: "nginx.conf"
+  static_root: "/opt/cherubits/kryten/static/"
+#  distribution_directory: "/opt/cherubits/kryten/dist"
+  virtualenv_name: "env"
+  virtualenv_path: "/opt/cherubits/kryten/env"
+#  project_path: "/opt/cherubits/kryten/kryten_worksheet"
