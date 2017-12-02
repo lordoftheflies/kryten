@@ -41,7 +41,7 @@
     - upstart
 - name: Create configuration directory
   file:
-    path: "{{ kryten.base_directory }}/{{ kryten.log_directory }}"
+    path: "{{ kryten.base_directory }}/{{ kryten.config_directory }}"
     state: directory
     owner: "{{ kryten.user }}"
     group: "{{ kryten.group }}"
