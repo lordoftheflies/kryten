@@ -1,5 +1,17 @@
 ---
 # This playbook setup Django
+
+- name: Create workspace directory
+  file:
+    path: "{{ kryten.workspace_directory }}"
+    state: directory
+  become: yes
+  become_user: root
+  tags:
+    - kryten
+    - worksheet
+    - upstart
+
 - group:
     name: "{{ kryten.group }}"
     state: present
@@ -15,18 +27,6 @@
   become: yes
   become_user: root
 
-- name: Create workspace directory
-  file:
-    path: "{{ kryten.base_directory }}"
-    state: directory
-    owner: "{{ kryten.user }}"
-    group: "{{ kryten.group }}"
-  become: yes
-  become_user: root
-  tags:
-    - kryten
-    - worksheet
-    - upstart
 - name: Create logs directory
   file:
     path: "{{ kryten.base_directory }}/{{ kryten.log_directory }}"

@@ -15,6 +15,7 @@ kryten:
   log_directory: "log"
   config_directory: "config"
   logfile: "uwsgi.log"
+  workspace_directory: "/opt/cherubits"
   base_directory: "/opt/cherubits/kryten"
   python_exec: "python3.4"
   uwsgi_config: "uwsgi.ini"
