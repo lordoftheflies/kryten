@@ -14,7 +14,7 @@
   become_user: "{{ kryten.user }}"
   template:
     src: nginx.conf.j2
-    dest: "{{ kryten.base_directory }}/{{ kryten.config_directory }}/{{ nginx_config }}"
+    dest: "{{ kryten.base_directory }}/{{ kryten.config_directory }}/{{ kryten.nginx_config }}"
   tags:
     - kryten
     - worksheet
@@ -24,7 +24,7 @@
   become: yes
   become_user: root
   file:
-    src: '{{ base_directory }}/{{ config_directory }}/{{ uwsgi_config }}'
+    src: '{{ kryten.base_directory }}/{{ kryten.config_directory }}/{{ kryten.uwsgi_config }}'
     dest: '{{ uwsgi_sites_directory }}/{{ kryten.project }}.conf'
     state: link
   tags:
@@ -36,7 +36,7 @@
   become: yes
   become_user: root
   file:
-    src: '{{ base_directory }}/{{ config_directory }}/{{ nginx_config }}'
+    src: '{{ kryten.base_directory }}/{{ kryten.config_directory }}/{{ kryten.nginx_config }}'
     dest: '{{ nginx_sites_directory }}/{{ kryten.project }}.conf'
     state: link
   tags:
@@ -48,8 +48,8 @@
   become: yes
   become_user: root
   file:
-    src: '{{ nginx_sites_directory }}/kryten_worksheet.conf'
-    dest: '{{ nginx_enabled_directory }}/kryten_worksheet.conf'
+    src: '{{ nginx_sites_directory }}/{{ kryten.project }}.conf'
+    dest: '{{ nginx_enabled_directory }}/{{ kryten.project }}.conf'
     state: link
   tags:
     - kryten
