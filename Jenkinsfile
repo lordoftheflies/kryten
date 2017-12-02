@@ -81,7 +81,7 @@ pipeline {
                     python setup.py sdist upload -r local
                     deactivate
                 '''
-                slackSend baseUrl: 'https://cherubits.slack.com/services/hooks/jenkins-ci/', botUser: true, channel: 'jenkins', color: 'good', message: "started $JOB_NAME $env.BUILD_NUMBER (<$BUILD_URL|Open>)', teamDomain: 'cherubits', tokenCredentialId: 'cherubits-slack-integration-token"
+                slackSend baseUrl: 'https://cherubits.slack.com/services/hooks/jenkins-ci/', botUser: true, channel: 'jenkins', color: 'good', message: "started $JOB_NAME $env.BUILD_NUMBER (<$BUILD_URL|Open>)", teamDomain: 'cherubits', tokenCredentialId: 'cherubits-slack-integration-token"
             }
         }
         stage('Distribute') {
