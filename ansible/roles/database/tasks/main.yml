@@ -1,0 +1,57 @@
+---
+# This playbook deploys the whole application stack in this site.
+- name: Update repositories cache and install "python3-dev" package
+  become: yes
+  become_user: root
+  apt:
+    name: python3-dev
+    update_cache: yes
+    force_apt_get: yes
+  tags:
+    - database
+    - kryten
+    - worksheet
+- name: Update repositories cache and install "postgresql" package
+  become: yes
+  become_user: root
+  apt:
+    name: postgresql
+    update_cache: yes
+    force_apt_get: yes
+  tags:
+    - database
+    - kryten
+    - worksheet
+- name: Update repositories cache and install "postgresql-contrib" package
+  become: yes
+  become_user: root
+  apt:
+    name: postgresql-contrib
+    update_cache: yes
+    force_apt_get: yes
+  tags:
+    - database
+    - kryten
+    - worksheet
+- name: Update repositories cache and install "python3-psycopg2" package
+  become: yes
+  become_user: root
+  apt:
+    name: python3-psycopg2
+    update_cache: yes
+    force_apt_get: yes
+  tags:
+    - database
+    - kryten
+    - worksheet
+- name: Update repositories cache and install "libpq-dev" package
+  become: yes
+  become_user: root
+  apt:
+    name: libpq-dev
+    update_cache: yes
+    force_apt_get: yes
+  tags:
+    - database
+    - kryten
+    - worksheet

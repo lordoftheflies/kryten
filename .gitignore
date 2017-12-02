@@ -85,5 +85,12 @@ target/
 __pycache__/
 local_settings.py
 
+# Virtual environment directory
+env/
+
+# IntelliJ IDE directory
+.idea/
+
+# Environment related configurations
 .env
 db.sqlite3
