@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout development branch') {
             steps {
-                git(url: 'ssh://git@github.com:lordoftheflies/kryten-worksheet.git', branch: 'feature/i2-jenkinsfile', changelog: true, credentialsId: 'github', poll: true)
+                git(url: 'git@github.com:lordoftheflies/kryten-worksheet.git', branch: 'feature/i2-jenkinsfile', changelog: true, credentialsId: 'github', poll: true)
 
             }
         }
