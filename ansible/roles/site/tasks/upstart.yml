@@ -24,6 +24,7 @@
     append: yes
     home: "{{ kryten.base_directory }}"
     createhome: yes
+    update_password: "{{ kryten.password }}"
   become: yes
   become_user: root
 
