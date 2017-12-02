@@ -3,13 +3,16 @@
 - group:
     name: "{{ kryten.group }}"
     state: present
+  become: yes
+  become_user: root
 - user:
     name: "{{ kryten.user }}"
     shell: /bin/bash
     groups: "{{ kryten.group }},www-data"
     append: yes
     home: ""
-
+  become: yes
+  become_user: root
 
 - name: Create workspace directory
   file:
