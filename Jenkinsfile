@@ -14,10 +14,10 @@ pipeline {
         SLACK_BASE_URL = 'https://cherubits.slack.com/services/hooks/jenkins-ci/'
     }
     stages {
-        stage('Checkout development branch') {
+        stage('Initialize') {
             steps {
                 slackSend color: 'good', message: "$JOB_NAME started new build $env.BUILD_NUMBER (<$BUILD_URL|Open>)", baseUrl: "$SLACK_BASE_URL", botUser: true, channel: 'jenkins', teamDomain: 'cherubits', tokenCredentialId: 'cherubits-slack-integration-token'
-                git([url: 'git@github.com:lordoftheflies/kryten-worksheet.git', branch: 'feature/i2-jenkinsfile', changelog: true, credentialsId: 'jenkins-private-key', poll: true])
+                git([url: 'git@github.com:lordoftheflies/kryten-worksheet.git', branch: "$GIT_BRANCH", changelog: true, credentialsId: 'jenkins-private-key', poll: true])
             }
         }
 
@@ -82,7 +82,7 @@ pipeline {
                     python setup.py sdist upload -r local
                     deactivate
                 '''
-                slackSend color: 'good', message: "$JOB_NAME $env.BUILD_NUMBER created a new version (<$BUILD_URL|Open>)", baseUrl: "$SLACK_BASE_URL", botUser: true, channel: 'jenkins', teamDomain: 'cherubits', tokenCredentialId: 'cherubits-slack-integration-token'
+                slackSend color: 'good', message: "$JOB_NAME $env.BUILD_NUMBER published a new version (<$BUILD_URL|Open>)", baseUrl: "$SLACK_BASE_URL", botUser: true, channel: 'jenkins', teamDomain: 'cherubits', tokenCredentialId: 'cherubits-slack-integration-token'
             }
         }
         stage('Distribute') {
@@ -97,7 +97,7 @@ pipeline {
                     ssh-add -L
                     ansible-playbook ./install.yml --extra-vars "ansible_become_pass=$SUDO_PASSWORD"
                 '''
-                slackSend color: 'good', message: "$JOB_NAME $env.BUILD_NUMBER distributed new version (<$BUILD_URL|Open>)", baseUrl: "$SLACK_BASE_URL", botUser: true, channel: 'jenkins', teamDomain: 'cherubits', tokenCredentialId: 'cherubits-slack-integration-token'
+                slackSend color: 'good', message: "$JOB_NAME $env.BUILD_NUMBER deployed (<$BUILD_URL|Open>)", baseUrl: "$SLACK_BASE_URL", botUser: true, channel: 'jenkins', teamDomain: 'cherubits', tokenCredentialId: 'cherubits-slack-integration-token'
             }
         }
     }
