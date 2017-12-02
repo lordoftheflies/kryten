@@ -13,11 +13,11 @@ pipeline {
         SUDO_PASSWORD = 'Armageddon0'
     }
     stages {
-        stage('Checkout development branch') {
-            steps {
-                git(url: 'git@github.com:lordoftheflies/kryten-worksheet.git', branch: 'feature/i2-jenkinsfile', changelog: true, credentialsId: 'jenkins-private-key', poll: true)
-            }
-        }
+        //stage('Checkout development branch') {
+        //    steps {
+        //        git(url: 'git@github.com:lordoftheflies/kryten-worksheet.git', branch: 'feature/i2-jenkinsfile', changelog: true, credentialsId: 'jenkins-private-key', poll: true)
+        //    }
+        //}
 
         stage('Setup') {
               steps {
