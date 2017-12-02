@@ -92,6 +92,7 @@ pipeline {
             steps {
                 echo 'Jenkins build ${env.BUILD_ID} distribution'
                 sh '''cd ./ansible
+                    ssh-add -L
                     ansible-playbook ./install.yml --extra-vars "ansible_become_pass=$SUDO_PASSWORD"
                 '''
             }
