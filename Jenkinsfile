@@ -91,10 +91,9 @@ pipeline {
             }
             steps {
                 echo 'Jenkins build ${env.BUILD_ID} distribution'
-                ansiblePlaybook([ credentialsId: 'jenkins-private-key', extras: '--extra-vars "ansible_become_pass=$SUDO_PASSWORD"', inventory: 'ansible/hosts', playbook: 'ansible/install.yml', sudo: true, sudoUser: 'jenkins'])
-                //sh '''cd ./ansible
-                //    ansible-playbook ./install.yml --extra-vars "ansible_become_pass=$SUDO_PASSWORD"
-                //'''
+                sh '''cd ./ansible
+                    ansible-playbook ./install.yml --extra-vars "ansible_become_pass=$SUDO_PASSWORD"
+                '''
             }
         }
     }
