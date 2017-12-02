@@ -26,7 +26,7 @@ server {
     # Redirect using the 'return' directive and the built-in
     # variable '$request_uri' to avoid any capturing, matching
     # or evaluation of regular expressions.
-    return 301 https://{{ pypi.domain }}$request_uri;
+    return 301 https://{{ kryten.domain }}$request_uri;
   }
 
   location /.well-known/acme-challenge/ {
