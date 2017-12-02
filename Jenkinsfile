@@ -15,7 +15,9 @@ pipeline {
     stages {
         stage('Checkout development branch') {
             steps {
-                sh 'ssh-add -L'
+                sh '''eval `ssh-agent -s`
+                ssh-add ~/.ssh/jenkins
+                '''
                 git([url: 'git@github.com:lordoftheflies/kryten-worksheet.git', branch: 'feature/i2-jenkinsfile', changelog: true, credentialsId: 'jenkins-private-key', poll: true])
 
             }
