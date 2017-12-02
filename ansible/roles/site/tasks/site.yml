@@ -7,7 +7,7 @@
     name: "{{ kryten.project }}"
     virtualenv: "{{ kryten.virtualenv_path }}"
     virtualenv_python: python3.4
-    extra_args: "-U -i {{ extra_index_url }}"
+    extra_args: "-U  --extra-index-url {{ extra_index_url }}"
   tags:
     - kryten
     - worksheet
