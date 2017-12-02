@@ -4,7 +4,7 @@
   become_user: "{{ kryten.user }}"
   template:
     src: uwsgi.ini.j2
-    dest: "{{ kryten.base_directory }}/{{ kryten.config_directory }}/{{ uwsgi_config }}"
+    dest: "{{ kryten.base_directory }}/{{ kryten.config_directory }}/{{ kryten.uwsgi_config }}"
   tags:
     - kryten
     - worksheet
