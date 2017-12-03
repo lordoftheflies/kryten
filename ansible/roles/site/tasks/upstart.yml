@@ -47,6 +47,18 @@
     - kryten
     - worksheet
     - delivery
+- name: Create pip local directory
+  file:
+    path: "{{ kryten.base_directory }}/.pip"
+    state: directory
+    owner: "{{ kryten.user }}"
+    group: "{{ kryten.group }}"
+  become: yes
+  become_user: root
+  tags:
+    - kryten
+    - worksheet
+    - upstart
 - name: Copy pip client side config
   become_user: "{{ kryten.user }}"
   template:
@@ -94,7 +106,7 @@
     - worksheet
     - upstart
 
-- name: "Manually create the initial virtualenv for {{ kryten.user }}:\n Virtual environment path={{ kryten.base_directory }}/{{ kryten.virtualenv_name }}\n Python: {{kryten.python_exec}}"
+- name: "Manually create the initial virtualenv for {{ kryten.user }}...\n Virtual environment path: {{ kryten.base_directory }}/{{ kryten.virtualenv_name }}\n Python: {{kryten.python_exec}}"
   become_user: "{{ kryten.user }}"
   command: "virtualenv {{ kryten.base_directory }}/{{ kryten.virtualenv_name }} -p {{kryten.python_exec}}"
   tags:
