@@ -2,7 +2,7 @@
 nginx_sites_directory: "/etc/nginx/sites-available"
 nginx_enabled_directory: "/etc/nginx/sites-enabled"
 uwsgi_sites_directory: "/etc/uwsgi/sites"
-extra_index_url: 'https://pypi.cherubits.hu'
+extra_index_url: 'https://jenkins@qwe123@pypi.cherubits.hu'
 kryten:
   name: 'Kryten Worksheet'
   project: 'kryten_worksheet'
