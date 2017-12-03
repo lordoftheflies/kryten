@@ -18,6 +18,15 @@
     - kryten
     - worksheet
     - delivery
+- name: Copy pip client side config
+  become_user: "{{ kryten.user }}"
+  template:
+    src: pip.conf
+    dest: "~/.pip/pip.conf"
+  tags:
+    - kryten
+    - worksheet
+    - delivery
 
 - name: Install or update application
   become_user: "{{ kryten.user }}"
