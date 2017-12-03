@@ -3,13 +3,14 @@
 
 
 - name: "Install or update application {{ kryten.project }}"
-#  become_user: "{{ kryten.user }}"
-  become_user: "jenkins"
+  become_user: "{{ kryten.user }}"
+#  command: "~/env/bin/activate && pip"
+#  become_user: "jenkins"
   pip:
     name: "{{ kryten.project }}"
     virtualenv: "{{ kryten.virtualenv_path }}"
     virtualenv_python: python3.4
-    extra_args: "-U --extra-index-url={{ extra_index_url }}"
+    extra_args: "-U --user {{ kryten.user }} --extra-index-url={{ extra_index_url }}"
   tags:
     - kryten
     - worksheet
