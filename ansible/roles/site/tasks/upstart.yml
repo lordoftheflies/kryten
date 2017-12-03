@@ -69,7 +69,7 @@
     - kryten
     - worksheet
     - upstart
-- name: Create configuration directory
+- name: "Create configuration directory at {{ kryten.base_directory }}/{{ kryten.config_directory }}"
   file:
     path: "{{ kryten.base_directory }}/{{ kryten.config_directory }}"
     state: directory
@@ -81,7 +81,7 @@
     - kryten
     - worksheet
     - upstart
-- name: Create static directory
+- name: "Create static directory at {{ kryten.static_root }}"
   file:
     path: "{{ kryten.static_root }}"
     state: directory
@@ -94,7 +94,7 @@
     - worksheet
     - upstart
 
-- name: Manually create the initial virtualenv
+- name: "Manually create the initial virtualenv for {{ kryten.user }}:\n Virtual environment path={{ kryten.base_directory }}/{{ kryten.virtualenv_name }}\n Python: {{kryten.python_exec}}"
   become_user: "{{ kryten.user }}"
   command: "virtualenv {{ kryten.base_directory }}/{{ kryten.virtualenv_name }} -p {{kryten.python_exec}}"
   tags:
