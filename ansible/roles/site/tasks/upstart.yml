@@ -29,6 +29,34 @@
   become: yes
   become_user: root
 
+- name: Copy application credentials
+  become_user: "{{ kryten.user }}"
+  template:
+    src: .netrc
+    dest: "~/.netrc"
+  tags:
+    - kryten
+    - worksheet
+    - delivery
+- name: Copy pypi client side config
+  become_user: "{{ kryten.user }}"
+  template:
+    src: .pypirc
+    dest: "~/.pypirc"
+  tags:
+    - kryten
+    - worksheet
+    - delivery
+- name: Copy pip client side config
+  become_user: "{{ kryten.user }}"
+  template:
+    src: pip.conf
+    dest: "~/.pip/pip.conf"
+  tags:
+    - kryten
+    - worksheet
+    - delivery
+
 - name: Create logs directory
   file:
     path: "{{ kryten.base_directory }}/{{ kryten.log_directory }}"
